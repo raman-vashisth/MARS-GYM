@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Mars Gym - Nutrition Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .poster-container {
+            max-width: 1300px;
+            width: 100%;
+        }
+
+        .gym-poster {
+            background: linear-gradient(145deg, #0f3460 0%, #1a1a2e 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 3px solid #ff6b35;
+        }
+
+        .poster-header {
+            background: linear-gradient(90deg, #ff6b35 0%, #ff9e1b 100%);
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gym-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 8px;
+        }
+
+        .poster-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: white;
+            letter-spacing: 1.5px;
+        }
+
+        .tagline {
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            margin-top: 8px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .poster-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 25px;
+        }
+
+        .section {
+            background: rgba(26, 26, 46, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            border-color: #ff6b35;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            margin-bottom: 15px;
+            color: #ff9e1b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 8px;
+        }
+
+        .section-title i {
+            color: #ff6b35;
+        }
+
+        .section p {
+            margin-bottom: 10px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .macro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 15px;
+            flex-grow: 1;
+        }
+
+        .macro-card {
+            background: rgba(31, 40, 71, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            border-left: 4px solid;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .veg-card {
+            border-left-color: #4caf50;
+        }
+
+        .nonveg-card {
+            border-left-color: #f44336;
+        }
+
+        .macro-type {
+            font-weight: 700;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .macro-type.veg {
+            color: #4caf50;
+        }
+
+        .macro-type.nonveg {
+            color: #f44336;
+        }
+
+        .sources {
+            list-style-type: none;
+            flex-grow: 1;
+        }
+
+        .sources li {
+            padding: 7px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        .sources li:last-child {
+            border-bottom: none;
+        }
+
+        .sources li i {
+            margin-right: 8px;
+            width: 20px;
+            color: #ff9e1b;
+            font-size: 0.8rem;
+        }
+
+        .protein-calculation {
+            grid-column: 1 / -1;
+            background: rgba(15, 52, 96, 0.6);
+            text-align: center;
+        }
+
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .input-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff6b35;
+            border-radius: 10px;
+            padding: 12px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+
+        .input-box label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #ff9e1b;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .input-box input, .input-box select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .result {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            background: rgba(255, 107, 53, 0.2);
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .highlight {
+            color: #ff9e1b;
+            font-weight: 700;
+        }
+
+        .diet-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .diet-card {
+            background: rgba(31, 40, 71, 0.7);
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .diet-card h4 {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            margin-bottom: 15px;
+            color: #ff9e1b;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ff6b35;
+        }
+
+        .meal {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .meal:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .meal-title {
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .meal p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            padding-left: 24px;
+        }
+
+        .poster-footer {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 15px 20px;
+            text-align: center;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            border-top: 2px solid #ff6b35;
+        }
+
+        .footer-highlight {
+            color: #ff9e1b;
+            font-weight: 700;
+        }
+
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+            font-size: clamp(5rem, 15vw, 10rem);
+        }
+
+        .dumbbell {
+            top: 20%;
+            left: 5%;
+            transform: rotate(45deg);
+        }
+
+        .apple {
+            bottom: 10%;
+            right: 5%;
+        }
+
+        .calc-btn {
+            background: linear-gradient(90deg, #ff6b35 0%, #ff9e1b 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px 0;
+        }
+        
+        .calc-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.6);
+        }
+
+        /* Responsive design */
+        @media (min-width: 768px) {
+            .poster-content {
+                gap: 25px;
+                padding: 30px;
+            }
+            
+            .macro-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .diet-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .poster-header {
+                padding: 30px 40px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .poster-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .protein-calculation {
+                grid-column: span 3;
+            }
+            
+            .section:last-child {
+                grid-column: span 3;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .section:last-child {
+                grid-column: 1 / -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <div class="gym-poster">
+            <div class="poster-header">
+                <div class="gym-name">NEW MARS GYM</div>
+                <div class="poster-title">NUTRITION GUIDE</div>
+                <div class="tagline">Fuel Your Transformation with Optimal Nutrition</div>
+            </div>
+            
+            <div class="decoration dumbbell">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            
+            <div class="decoration apple">
+                <i class="fas fa-apple-alt"></i>
+            </div>
+            
+            <div class="poster-content">
+                <!-- Carbohydrates Section -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-bread-slice"></i> Carbohydrates</h2>
+                    <p>Primary energy source for workouts and recovery</p>
+                    <div class="macro-grid">
+                        <div class="macro-card veg-card">
+                            <div class="macro-type veg"><i class="fas fa-leaf"></i> Vegetarian</div>
+                            <ul class="sources">
+                                <li><i class="fas fa-chevron-right"></i> Whole wheat roti/chapati</li>
+                                <li><i class="fas fa-chevron-right"></i> Brown rice</li>
+                                <li><i class="fas fa-chevron-right"></i> Oats & porridge</li>
+                                <li><i class="fas fa-chevron-right"></i> Millets (ragi, jowar, bajra)</li>
+                                <li><i class="fas fa-chevron-right"></i> Potatoes & sweet potatoes</li>
+                                <li><i class="fas fa-chevron-right"></i> Fruits (banana, mango)</li>
+                            </ul>
+                        </div>
+                        <div class="macro-card nonveg-card">
+                            <div class="macro-type nonveg"><i class="fas fa-drumstick-bite"></i> Non-Vegetarian</div>
+                            <ul class="sources">
+                                <li><i class="fas fa-chevron-right"></i> Pair with whole grains</li>
+                                <li><i class="fas fa-chevron-right"></i> Rice with chicken/fish</li>
+                                <li><i class="fas fa-chevron-right"></i> Roti with meat curries</li>
+                                <li><i class="fas fa-chevron-right"></i> Quinoa with eggs</li>
+                                <li><i class="fas fa-chevron-right"></i> Sweet potato with fish</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Proteins Section -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-dumbbell"></i> Proteins</h2>
+                    <p>Essential for muscle repair and growth</p>
+                    <div class="macro-grid">
+                        <div class="macro-card veg-card">
+                            <div class="macro-type veg"><i class="fas fa-leaf"></i> Vegetarian</div>
+                            <ul class="sources">
+                                <li><i class="fas fa-chevron-right"></i> Paneer (cottage cheese)</li>
+                                <li><i class="fas fa-chevron-right"></i> Soya chunks & tofu</li>
+                                <li><i class="fas fa-chevron-right"></i> Lentils & dals</li>
+                                <li><i class="fas fa-chevron-right"></i> Chickpeas (chana)</li>
+                                <li><i class="fas fa-chevron-right"></i> Kidney beans (rajma)</li>
+                                <li><i class="fas fa-chevron-right"></i> Milk & curd (dahi)</li>
+                            </ul>
+                        </div>
+                        <div class="macro-card nonveg-card">
+                            <div class="macro-type nonveg"><i class="fas fa-drumstick-bite"></i> Non-Vegetarian</div>
+                            <ul class="sources">
+                                <li><i class="fas fa-chevron-right"></i> Chicken breast</li>
+                                <li><i class="fas fa-chevron-right"></i> Eggs & egg whites</li>
+                                <li><i class="fas fa-chevron-right"></i> Fish (rohu, katla)</li>
+                                <li><i class="fas fa-chevron-right"></i> Lean mutton/goat</li>
+                                <li><i class="fas fa-chevron-right"></i> Prawns & shrimp</li>
+                                <li><i class="fas fa-chevron-right"></i> Turkey breast</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fats Section - Corrected -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-seedling"></i> Healthy Fats</h2>
+                    <p>For hormone balance and satiety</p>
+                    <div class="macro-grid">
+                        <div class="macro-card veg-card">
+                            <div class="macro-type veg"><i class="fas fa-leaf"></i> Vegetarian</div>
+                            <ul class="sources">
+                                <li><i class="fas fa-chevron-right"></i> Nuts (almonds, walnuts)</li>
+                                <li><i class="fas fa-chevron-right"></i> Seeds (chia, flax, sesame)</li>
+                                <li><i class="fas fa-chevron-right"></i> Avocado</li>
+                                <li><i class="fas fa-chevron-right"></i> Cold-pressed oils</li>
+                                <li><i class="fas fa-chevron-right"></i> Coconut (raw, oil)</li>
+                                <li><i class="fas fa-chevron-right"></i> Ghee (in moderation)</li>
+                            </ul>
+                        </div>
+                        <div class="macro-card nonveg-card">
+                            <div class="macro-type nonveg"><i class="fas fa-drumstick-bite"></i> Non-Vegetarian</div>
+                            <ul class="sources">
+                                <li><i class="fas fa-chevron-right"></i> Fatty fish (sardines)</li>
+                                <li><i class="fas fa-chevron-right"></i> Fish oil supplements</li>
+                                <li><i class="fas fa-chevron-right"></i> Egg yolks</li>
+                                <li><i class="fas fa-chevron-right"></i> Lean animal fats</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Protein Calculation -->
+                <div class="section protein-calculation">
+                    <h2 class="section-title"><i class="fas fa-calculator"></i> Protein Requirements</h2>
+                    <p>Calculate your daily protein needs based on body weight and fitness goals</p>
+                    
+                    <div class="calculator">
+                        <div class="input-group">
+                            <div class="input-box">
+                                <label for="weight">Your Weight (kg)</label>
+                                <input type="number" id="weight" placeholder="e.g. 70" min="30" max="200">
+                            </div>
+                            
+                            <div class="input-box">
+                                <label for="goal">Fitness Goal</label>
+                                <select id="goal">
+                                    <option value="1.6">Maintenance (1.6g/kg)</option>
+                                    <option value="1.8">Muscle Building (1.8g/kg)</option>
+                                    <option value="2.2">Intense Training (2.2g/kg)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button class="calc-btn" onclick="calculateProtein()">
+                            Calculate Protein Needs
+                        </button>
+                        
+                        <div class="result" id="result">
+                            Enter your details to calculate protein requirements
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Balanced Diet Examples -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-utensils"></i> Balanced Diet Examples</h2>
+                    <p>One day meal plans for optimal nutrition</p>
+                    
+                    <div class="diet-grid">
+                        <div class="diet-card">
+                            <h4><i class="fas fa-leaf"></i> Vegetarian Diet</h4>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-sun"></i> Breakfast</div>
+                                <p>Oats porridge with nuts + 2 boiled eggs + Fruit</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-apple-alt"></i> Mid-Morning</div>
+                                <p>Paneer sandwich + Banana smoothie</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-utensil-spoon"></i> Lunch</div>
+                                <p>2 Roti + Dal + Mixed sabzi + Curd + Salad</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-seedling"></i> Snack</div>
+                                <p>Sprouts chaat + Handful of almonds</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-moon"></i> Dinner</div>
+                                <p>Brown rice + Soya curry + Vegetable raita</p>
+                            </div>
+                        </div>
+                        
+                        <div class="diet-card">
+                            <h4><i class="fas fa-drumstick-bite"></i> Non-Vegetarian Diet</h4>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-sun"></i> Breakfast</div>
+                                <p>3 Egg omelette + Whole wheat toast + Fruit</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-apple-alt"></i> Mid-Morning</div>
+                                <p>Chicken sandwich + Protein shake</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-utensil-spoon"></i> Lunch</div>
+                                <p>Chicken curry + 2 Roti + Rice + Salad</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-seedling"></i> Snack</div>
+                                <p>Greek yogurt with berries + Walnuts</p>
+                            </div>
+                            <div class="meal">
+                                <div class="meal-title"><i class="fas fa-moon"></i> Dinner</div>
+                                <p>Grilled fish + Quinoa + Steamed vegetables</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="poster-footer">
+                <p><span class="footer-highlight">NEW MARS GYM</span> - Transform Your Body, Elevate Your Life</p>
+                <p>Consult our nutrition experts for personalized diet plans | www.newmarsgym.com | (123) 456-7890</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateProtein() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const goalFactor = parseFloat(document.getElementById('goal').value);
+            
+            if (isNaN(weight) || weight < 30 || weight > 200) {
+                document.getElementById('result').innerHTML = "Please enter a valid weight between 30-200 kg";
+                return;
+            }
+            
+            const proteinMin = Math.round(weight * 1.6);
+            const proteinRec = Math.round(weight * goalFactor);
+            const proteinMax = Math.round(weight * 2.2);
+            
+            document.getElementById('result').innerHTML = `
+                For <span class="highlight">${weight} kg</span> body weight:<br>
+                Your recommended protein intake: <span class="highlight">${proteinRec} grams/day</span><br>
+                Range: ${proteinMin} - ${proteinMax} grams/day
+            `;
+        }
+    </script>
+</body>
+</html>
